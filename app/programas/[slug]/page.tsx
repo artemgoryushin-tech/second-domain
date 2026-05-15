@@ -313,7 +313,7 @@ export default async function RankingPage({ params }: PageProps) {
           </h2>
           <p className="mt-4 max-w-4xl text-base leading-8 text-white/75">{seoContent.bebrokerBridge}</p>
           <div className="mt-6">
-            <BeBrokerCTA compact />
+            <BeBrokerCTA compact horizontal />
           </div>
         </section>
 

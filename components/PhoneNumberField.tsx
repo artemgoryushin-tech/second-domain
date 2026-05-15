@@ -34,6 +34,7 @@ type PhoneNumberFieldProps = {
   name: string;
   label: string;
   required?: boolean;
+  compact?: boolean;
 };
 
 function getCountryFlag(country: CountryCode) {
@@ -63,7 +64,7 @@ function normalizePhoneNumber(rawValue: string, country: CountryCode) {
   return "";
 }
 
-export function PhoneNumberField({ id, name, label, required }: PhoneNumberFieldProps) {
+export function PhoneNumberField({ id, name, label, required, compact = false }: PhoneNumberFieldProps) {
   const [country, setCountry] = useState<CountryCode>("BR");
   const [phoneInput, setPhoneInput] = useState("");
   const [touched, setTouched] = useState(false);
@@ -109,27 +110,32 @@ export function PhoneNumberField({ id, name, label, required }: PhoneNumberField
 
   return (
     <div className="@container grid gap-2">
-      <label className="text-xs font-black uppercase tracking-[0.14em] text-muted" htmlFor={id}>
+      <label className="text-xs font-black uppercase leading-5 tracking-[0.08em] text-muted" htmlFor={id}>
         {label}
         {required ? <span className="text-brand"> *</span> : null}
       </label>
-      <div className="grid gap-2 @xl:grid-cols-[11rem_1fr]">
-        <select
-          className="min-w-0 rounded-2xl border border-line bg-white px-4 py-3 text-sm font-black text-ink outline-brand transition focus:border-brand"
-          value={country}
-          aria-label="País do telefone"
-          onChange={(event) => handleCountryChange(event.target.value)}
-        >
-          {countryOptions.map((option) => (
-            <option key={option.country} value={option.country}>
-              {getCountryFlag(option.country)} {option.name} +{option.callingCode}
-            </option>
-          ))}
-        </select>
+      <div className={`grid gap-2 ${compact ? "@3xl:grid-cols-[12rem_1fr]" : "@xl:grid-cols-[12rem_1fr]"}`}>
+        <div className="relative min-w-0">
+          <select
+            className="h-12 w-full min-w-0 appearance-none rounded-2xl border border-line bg-white px-4 pr-10 text-sm font-black text-ink outline-brand transition focus:border-brand"
+            value={country}
+            aria-label="País do telefone"
+            onChange={(event) => handleCountryChange(event.target.value)}
+          >
+            {countryOptions.map((option) => (
+              <option key={option.country} value={option.country}>
+                {getCountryFlag(option.country)} {option.name} +{option.callingCode}
+              </option>
+            ))}
+          </select>
+          <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-xs font-black text-muted">
+            ▾
+          </span>
+        </div>
         <input
           ref={inputRef}
           id={id}
-          className={`min-w-0 rounded-2xl border bg-white px-4 py-3 text-sm font-bold text-ink outline-brand transition focus:border-brand ${
+          className={`h-12 min-w-0 rounded-2xl border bg-white px-4 text-sm font-bold text-ink outline-brand transition focus:border-brand ${
             isInvalid && touched ? "border-brand" : "border-line"
           }`}
           type="tel"

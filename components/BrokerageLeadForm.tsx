@@ -11,6 +11,7 @@ type BrokerageLeadFormProps = {
   title?: string;
   description?: string;
   compact?: boolean;
+  layout?: "standard" | "sidebar" | "wide";
 };
 
 type SubmitState = "idle" | "loading" | "success" | "error";
@@ -59,12 +60,16 @@ export function BrokerageLeadForm({
   requestType = "white-label brokerage platform",
   title = "Solicitar contato",
   description = "Compartilhe seus dados e o contexto do projeto. A solicitação será enviada ao CRM para follow-up.",
-  compact = false
+  compact = false,
+  layout = compact ? "sidebar" : "standard"
 }: BrokerageLeadFormProps) {
   const generatedId = useId().replace(/:/g, "");
   const idPrefix = formId ?? `lead-${generatedId}`;
   const [status, setStatus] = useState<SubmitState>("idle");
   const [message, setMessage] = useState("");
+  const isSidebar = layout === "sidebar";
+  const isWide = layout === "wide";
+  const isCompact = compact || isSidebar;
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -128,23 +133,24 @@ export function BrokerageLeadForm({
   return (
     <section
       id={formId}
-      className={`@container surface-card scroll-mt-24 rounded-[2rem] ${
-        compact ? "p-5 md:p-6" : "p-7 md:p-10"
+      className={`@container surface-card scroll-mt-28 rounded-[2rem] ${
+        isCompact ? "p-5 md:p-6" : "p-7 md:p-10"
       }`}
     >
-      <div className="flex flex-col gap-3">
-        <p className="w-fit rounded-full border border-brand/15 bg-brand/5 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-brand">
-          Próximo nível
-        </p>
-        <h2 className={`text-balance font-black tracking-tight text-ink ${compact ? "text-2xl" : "text-3xl"}`}>
-          {title}
-        </h2>
-        <p className={`${compact ? "text-sm leading-6" : "max-w-3xl text-sm leading-7"} text-muted`}>
-          {description}
-        </p>
-      </div>
+      <div className={isWide ? "grid gap-7 @5xl:grid-cols-[0.78fr_1.22fr] @5xl:items-start" : ""}>
+        <div className="flex min-w-0 flex-col gap-3">
+          <p className="w-fit rounded-full border border-brand/15 bg-brand/5 px-3 py-1 text-xs font-black uppercase leading-5 tracking-[0.12em] text-brand">
+            Próximo nível
+          </p>
+          <h2 className={`text-balance font-black tracking-tight text-ink ${isCompact ? "text-[1.65rem] leading-tight" : "text-3xl"}`}>
+            {title}
+          </h2>
+          <p className={`${isCompact ? "text-sm leading-6" : "max-w-3xl text-sm leading-7"} text-muted`}>
+            {description}
+          </p>
+        </div>
 
-      <form className={`${compact ? "mt-5 gap-4" : "mt-7 gap-5"} grid`} onSubmit={handleSubmit}>
+        <form className={`${isWide ? "mt-0" : isCompact ? "mt-5" : "mt-7"} grid gap-4`} onSubmit={handleSubmit}>
         <div className="grid gap-4 @2xl:grid-cols-2">
           <Field label="Nome" htmlFor={`${idPrefix}-first-name`} required>
             <input
@@ -153,7 +159,7 @@ export function BrokerageLeadForm({
               autoComplete="name"
               placeholder="Seu nome"
               required
-              className="w-full rounded-2xl border border-line bg-white px-4 py-3 text-sm font-bold text-ink outline-brand transition focus:border-brand"
+              className="h-12 w-full rounded-2xl border border-line bg-white px-4 text-sm font-bold text-ink outline-brand transition focus:border-brand"
             />
           </Field>
           <Field label="Email" htmlFor={`${idPrefix}-email`} required>
@@ -164,12 +170,12 @@ export function BrokerageLeadForm({
               autoComplete="email"
               placeholder="nome@empresa.com"
               required
-              className="w-full rounded-2xl border border-line bg-white px-4 py-3 text-sm font-bold text-ink outline-brand transition focus:border-brand"
+              className="h-12 w-full rounded-2xl border border-line bg-white px-4 text-sm font-bold text-ink outline-brand transition focus:border-brand"
             />
           </Field>
         </div>
 
-        <PhoneNumberField id={`${idPrefix}-phone`} name="phone" label="Telefone" required />
+        <PhoneNumberField id={`${idPrefix}-phone`} name="phone" label="Telefone" required compact={isCompact} />
 
         <div className="grid gap-4 @2xl:grid-cols-2">
           <Field label="Empresa ou projeto" htmlFor={`${idPrefix}-company`}>
@@ -177,7 +183,7 @@ export function BrokerageLeadForm({
               id={`${idPrefix}-company`}
               name="company_name"
               placeholder="Empresa, time afiliado..."
-              className="w-full rounded-2xl border border-line bg-white px-4 py-3 text-sm font-bold text-ink outline-brand transition focus:border-brand"
+              className="h-12 w-full rounded-2xl border border-line bg-white px-4 text-sm font-bold text-ink outline-brand transition focus:border-brand"
             />
           </Field>
           <Field label="Telegram" htmlFor={`${idPrefix}-telegram`}>
@@ -185,7 +191,7 @@ export function BrokerageLeadForm({
               id={`${idPrefix}-telegram`}
               name="tg"
               placeholder="@usuario"
-              className="w-full rounded-2xl border border-line bg-white px-4 py-3 text-sm font-bold text-ink outline-brand transition focus:border-brand"
+              className="h-12 w-full rounded-2xl border border-line bg-white px-4 text-sm font-bold text-ink outline-brand transition focus:border-brand"
             />
           </Field>
         </div>
@@ -195,12 +201,12 @@ export function BrokerageLeadForm({
             id={`${idPrefix}-notes`}
             name="comment"
             placeholder="Regiões alvo, pagamentos, CRM, apps, prazo de lançamento..."
-            className={`${compact ? "min-h-24" : "min-h-28"} w-full rounded-2xl border border-line bg-white px-4 py-3 text-sm font-bold text-ink outline-brand transition focus:border-brand`}
+            className={`${isCompact ? "min-h-24" : "min-h-28"} w-full rounded-2xl border border-line bg-white px-4 py-3 text-sm font-bold text-ink outline-brand transition focus:border-brand`}
           />
         </Field>
 
-        <label className="flex items-start gap-3 rounded-2xl bg-cream/80 p-4 text-sm leading-6">
-          <input name="terms_agree" type="checkbox" required className="mt-1 h-5 w-5 shrink-0 accent-brand" />
+        <label className={`flex items-start gap-3 rounded-2xl bg-cream/80 ${isCompact ? "p-3 text-xs leading-5" : "p-4 text-sm leading-6"}`}>
+          <input name="terms_agree" type="checkbox" required className={`${isCompact ? "h-4 w-4" : "h-5 w-5"} mt-1 shrink-0 accent-brand`} />
           <span className="font-semibold text-muted">
             Concordo em ser contatado sobre plataforma/corretora white label e entendo que isso não é consultoria
             jurídica ou financeira.
@@ -228,7 +234,8 @@ export function BrokerageLeadForm({
             {message}
           </div>
         ) : null}
-      </form>
+        </form>
+      </div>
     </section>
   );
 }
@@ -246,7 +253,7 @@ function Field({
 }) {
   return (
     <div className="grid gap-2">
-      <label className="text-xs font-black uppercase tracking-[0.14em] text-muted" htmlFor={htmlFor}>
+      <label className="text-xs font-black uppercase leading-5 tracking-[0.08em] text-muted" htmlFor={htmlFor}>
         {label}
         {required ? <span className="text-brand"> *</span> : null}
       </label>

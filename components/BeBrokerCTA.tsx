@@ -11,14 +11,15 @@ const leadCopy =
 
 export function BeBrokerCTA({ compact = false, horizontal = false, formId }: BeBrokerCTAProps) {
   return (
-    <div className={horizontal ? "w-full" : compact ? "max-w-xl" : "w-full"}>
+    <div className={horizontal ? "w-full" : compact ? "w-full max-w-xl" : "w-full"}>
       <BrokerageLeadForm
         formId={formId}
         compact={compact}
+        layout={horizontal ? "wide" : compact ? "sidebar" : "standard"}
         contextName="AfiliadosPro Brasil white label"
         contextSlug="afiliadospro-white-label"
         requestType="white-label broker ownership"
-        title={horizontal ? "Ir para o próximo nível" : "Receba 100% da receita do seu tráfego"}
+        title="Receba 100% da receita do seu tráfego"
         description={leadCopy}
       />
     </div>

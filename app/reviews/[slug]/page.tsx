@@ -516,7 +516,7 @@ export default async function ReviewPage({ params }: PageProps) {
               {seoEnhancement.whiteLabelAlternative}
             </p>
             <div className="mt-6">
-              <BeBrokerCTA compact />
+              <BeBrokerCTA compact horizontal />
             </div>
           </section>
         ) : null}
