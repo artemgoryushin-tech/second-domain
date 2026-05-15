@@ -39,3 +39,9 @@ All MVP content lives in `data/site.ts`:
 ## Production Notes
 
 Before public launch, replace `siteConfig.domain`, connect real analytics, add final legal copy, validate all affiliate program terms against official sources and review financial/compliance disclaimers for Brazil.
+
+## Lead Forms
+
+- `BrokerageLeadForm` in `components/BrokerageLeadForm.tsx` submits leads to `/api/leads`.
+- `FORMS_API_URL` points the server route to the CRM form API. Default: `https://group.quadcode.com`.
+- `FORMS_API_ENDPOINT` overrides the CRM form path. Default: `/api/notPopup`.
