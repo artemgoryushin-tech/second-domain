@@ -90,18 +90,18 @@ function CalculatorInput({
   suffix?: string;
 }) {
   return (
-    <label className="grid gap-2 rounded-2xl bg-cream/80 p-4">
-      <span className="text-xs font-black uppercase tracking-[0.14em] text-muted">{label}</span>
-      <span className="flex items-center gap-2">
+    <label className="grid min-w-0 gap-2 overflow-hidden rounded-2xl bg-cream/80 p-4">
+      <span className="text-xs font-black uppercase leading-5 tracking-[0.08em] text-muted">{label}</span>
+      <span className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
         <input
           type="number"
           min="0"
           step={step}
           name={name}
           defaultValue={value}
-          className="min-w-0 flex-1 rounded-2xl border border-line bg-white px-4 py-3 text-base font-black text-ink outline-brand"
+          className="h-12 w-full min-w-0 rounded-2xl border border-line bg-white px-4 text-base font-black text-ink outline-brand"
         />
-        {suffix ? <span className="text-sm font-black text-muted">{suffix}</span> : null}
+        {suffix ? <span className="shrink-0 text-sm font-black text-muted">{suffix}</span> : null}
       </span>
     </label>
   );
@@ -111,9 +111,9 @@ function ResultTile({ label, value, tone = "brand" }: { label: string; value: st
   const toneClass = tone === "accent" ? "text-accent" : tone === "ink" ? "text-ink" : "text-brand";
 
   return (
-    <div className="rounded-2xl border border-line bg-white p-5 shadow-sm">
-      <p className="text-xs font-black uppercase tracking-[0.14em] text-muted">{label}</p>
-      <p className={`mt-3 text-3xl font-black tracking-tight ${toneClass}`}>{value}</p>
+    <div className="min-w-0 overflow-hidden rounded-2xl border border-line bg-white p-5 shadow-sm">
+      <p className="text-xs font-black uppercase leading-5 tracking-[0.08em] text-muted">{label}</p>
+      <p className={`mt-3 break-words text-[1.65rem] font-black leading-tight tracking-tight @3xl:text-3xl ${toneClass}`}>{value}</p>
     </div>
   );
 }
@@ -176,22 +176,22 @@ export default async function ToolsPage({ searchParams }: ToolsPageProps) {
             />
           </div>
 
-          <form className="surface-card mt-10 rounded-[2rem] p-7 md:p-10" method="GET">
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <form className="@container surface-card mt-10 rounded-[2rem] p-5 md:p-8" method="GET">
+            <div className="flex flex-col gap-4 @4xl:flex-row @4xl:items-end @4xl:justify-between">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-brand">
                   CPA vs RevShare
                 </p>
-                <h2 className="mt-3 text-3xl font-black tracking-tight text-ink">
+                <h2 className="mt-3 text-2xl font-black tracking-tight text-ink @3xl:text-3xl">
                   Receita estimada por modelo
                 </h2>
               </div>
-              <button className="rounded-full bg-brand px-5 py-3 text-sm font-black text-white shadow-soft transition hover:bg-ink">
+              <button className="w-fit rounded-full bg-brand px-5 py-3 text-sm font-black text-white shadow-soft transition hover:bg-ink">
                 Recalcular
               </button>
             </div>
 
-            <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <div className="mt-7 grid gap-4 @2xl:grid-cols-2 @6xl:grid-cols-3">
               <CalculatorInput label="FTDs aprovados" name="ftd" value={ftd} />
               <CalculatorInput label="CPA por FTD" name="cpa" value={cpa} suffix="US$" />
               <CalculatorInput label="Traders ativos" name="activeRate" value={activeRate} suffix="%" />
@@ -200,7 +200,7 @@ export default async function ToolsPage({ searchParams }: ToolsPageProps) {
               <CalculatorInput label="Meses de retenção" name="months" value={months} />
             </div>
 
-            <div className="mt-7 grid gap-4 md:grid-cols-3">
+            <div className="mt-7 grid gap-4 @3xl:grid-cols-3">
               <ResultTile label="Total CPA" value={money(cpaTotal)} />
               <ResultTile label="Total RevShare" value={money(revShareTotal)} tone="accent" />
               <ResultTile label="Break-even RevShare" value={`${number(revShareBreakEvenMonths)} meses`} tone="ink" />
@@ -210,11 +210,11 @@ export default async function ToolsPage({ searchParams }: ToolsPageProps) {
               <p className="text-xs font-black uppercase tracking-[0.18em] text-brand">
                 ROI de tráfego
               </p>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-ink">
+              <h2 className="mt-3 text-2xl font-black tracking-tight text-ink @3xl:text-3xl">
                 Simulador de campanha
               </h2>
 
-              <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              <div className="mt-7 grid gap-4 @2xl:grid-cols-2 @6xl:grid-cols-3">
                 <CalculatorInput label="Cliques" name="clicks" value={clicks} />
                 <CalculatorInput label="CPC" name="cpc" value={cpc} step="0.01" suffix="US$" />
                 <CalculatorInput label="Cadastro" name="signupRate" value={signupRate} step="0.1" suffix="%" />
@@ -222,7 +222,7 @@ export default async function ToolsPage({ searchParams }: ToolsPageProps) {
                 <CalculatorInput label="Comissão média" name="avgCommission" value={avgCommission} suffix="US$" />
               </div>
 
-              <div className="mt-7 grid gap-4 md:grid-cols-4">
+              <div className="mt-7 grid gap-4 @2xl:grid-cols-2 @6xl:grid-cols-4">
                 <ResultTile label="Custo" value={money(trafficCost)} tone="ink" />
                 <ResultTile label="FTDs estimados" value={number(roiFtd)} />
                 <ResultTile label="Lucro" value={money(profit)} tone={profit >= 0 ? "accent" : "ink"} />

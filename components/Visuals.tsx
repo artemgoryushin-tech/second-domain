@@ -194,13 +194,13 @@ export function HeroVisual() {
   const checks = ["CPA que paga", "RevShare que escala", "FTD aprovado", "Sem conta bloqueada"];
 
   return (
-    <div className="surface-card-strong relative self-center overflow-hidden rounded-[2rem] p-5 md:p-6">
+    <div className="relative self-center overflow-hidden rounded-[2rem] bg-white/85 p-5 shadow-soft md:p-6">
       <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-brand/10 blur-sm" />
       <div className="absolute -bottom-16 -left-16 h-40 w-40 rounded-full bg-accent/10 blur-sm" />
       <div className="relative grid gap-4">
         <IllustrationImage
           asset={illustrations.stockMarket}
-          className="aspect-[1.35] border border-line"
+          className="aspect-[1.35]"
           imageClassName="object-contain object-center"
           priority
         />
@@ -261,7 +261,7 @@ export function CategoryVisual({ label, tone = "brand" }: { label: string; tone?
       <div className="grid gap-4">
         <IllustrationImage
           asset={categoryIllustration(label)}
-          className="aspect-[1.8] border border-white/70"
+          className="aspect-[1.8]"
           imageClassName="object-contain object-center"
         />
         <div>
@@ -280,7 +280,7 @@ export function FunnelVisual() {
     <div className="surface-card rounded-[2rem] p-6">
       <IllustrationImage
         asset={illustrations.creativeCollaboration}
-        className="mb-6 aspect-[2.4] border border-line"
+        className="mb-6 aspect-[2.4]"
         imageClassName="object-contain object-center"
       />
       <p className="inline-flex rounded-full border border-brand/15 bg-brand/5 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-brand">Funil de afiliados</p>
@@ -306,7 +306,7 @@ export function CommissionVisual() {
     <div className="surface-card rounded-[2rem] p-6">
       <IllustrationImage
         asset={illustrations.financeLeaders}
-        className="mb-6 aspect-[2.4] border border-line"
+        className="mb-6 aspect-[2.4]"
         imageClassName="object-contain object-center"
       />
       <p className="inline-flex rounded-full border border-brand/15 bg-brand/5 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-brand">
@@ -336,7 +336,7 @@ export function TrafficSourcesVisual({ sources }: { sources: string[] }) {
     <div className="surface-card rounded-[2rem] p-6">
       <IllustrationImage
         asset={illustrations.stockExchangeData2}
-        className="mb-6 aspect-[2.4] border border-line"
+        className="mb-6 aspect-[2.4]"
         imageClassName="object-contain object-center"
       />
       <p className="inline-flex rounded-full border border-accent/20 bg-accent/10 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-accent">Fontes de tráfego</p>
@@ -419,7 +419,7 @@ export function BrandReviewVisual({
     <div className="surface-card-strong min-w-0 overflow-hidden rounded-[2rem] p-5 md:p-6">
       <IllustrationImage
         asset={asset}
-        className="aspect-[1.65] border border-line"
+        className="aspect-[1.65]"
         imageClassName="object-contain object-center"
       />
       <div className="mt-4 grid min-w-0 grid-cols-1 gap-3 2xl:grid-cols-2">
@@ -444,7 +444,7 @@ export function MetricsVisual({ metrics }: { metrics: string[] }) {
     <div className="surface-card rounded-[2rem] p-6">
       <IllustrationImage
         asset={illustrations.testing}
-        className="mb-6 aspect-[2.4] border border-line"
+        className="mb-6 aspect-[2.4]"
         imageClassName="object-contain object-center"
       />
       <p className="inline-flex rounded-full border border-brand/15 bg-brand/5 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-brand">
