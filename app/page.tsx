@@ -89,7 +89,7 @@ export default function HomePage() {
             <Link
               key={ranking.slug}
               href={`/programas/${ranking.slug}`}
-              className="surface-card group rounded-[1.75rem] p-5 transition duration-300 hover:-translate-y-1 hover:shadow-soft"
+              className="visual-card group rounded-[1.75rem] p-5 transition duration-300 hover:-translate-y-1 hover:shadow-soft"
             >
               <CategoryVisual
                 label={ranking.category === "all" ? "Broker" : ranking.category}

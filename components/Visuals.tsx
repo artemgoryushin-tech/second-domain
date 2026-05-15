@@ -166,18 +166,21 @@ function IllustrationImage({
   className = "",
   imageClassName = "object-contain",
   priority = false,
-  blend = true
+  blend = true,
+  integrated = false
 }: {
   asset: IllustrationAsset;
   className?: string;
   imageClassName?: string;
   priority?: boolean;
   blend?: boolean;
+  integrated?: boolean;
 }) {
   const useBlend = blend && asset.blend !== false;
+  const frameClass = integrated ? "media-frame-integrated" : "media-frame";
 
   return (
-    <div className={`media-frame relative w-full overflow-hidden rounded-[1.75rem] ${className}`}>
+    <div className={`${frameClass} relative w-full overflow-hidden rounded-[1.75rem] ${className}`}>
       <Image
         src={asset.src}
         alt={asset.alt}
@@ -257,12 +260,13 @@ function categoryIllustration(label: string) {
 
 export function CategoryVisual({ label, tone = "brand" }: { label: string; tone?: VisualTone }) {
   return (
-    <div className={`overflow-hidden rounded-3xl bg-gradient-to-br ${toneClasses[tone]} p-4`}>
+    <div className={`overflow-hidden rounded-3xl bg-gradient-to-br ${toneClasses[tone]} p-4 shadow-[inset_0_0_44px_rgba(255,255,255,0.42)]`}>
       <div className="grid gap-4">
         <IllustrationImage
           asset={categoryIllustration(label)}
           className="aspect-[1.8]"
           imageClassName="object-contain object-center"
+          integrated
         />
         <div>
           <p className="text-xs font-black uppercase tracking-[0.18em] text-muted">Categoria</p>
@@ -277,7 +281,7 @@ export function FunnelVisual() {
   const steps = ["Tráfego", "Página", "FTD", "Pagamento"];
 
   return (
-    <div className="surface-card rounded-[2rem] p-6">
+    <div className="visual-card rounded-[2rem] p-6">
       <IllustrationImage
         asset={illustrations.creativeCollaboration}
         className="mb-6 aspect-[2.4]"
@@ -303,7 +307,7 @@ export function FunnelVisual() {
 
 export function CommissionVisual() {
   return (
-    <div className="surface-card rounded-[2rem] p-6">
+    <div className="visual-card rounded-[2rem] p-6">
       <IllustrationImage
         asset={illustrations.financeLeaders}
         className="mb-6 aspect-[2.4]"
@@ -333,7 +337,7 @@ export function CommissionVisual() {
 
 export function TrafficSourcesVisual({ sources }: { sources: string[] }) {
   return (
-    <div className="surface-card rounded-[2rem] p-6">
+    <div className="visual-card rounded-[2rem] p-6">
       <IllustrationImage
         asset={illustrations.stockExchangeData2}
         className="mb-6 aspect-[2.4]"
@@ -416,7 +420,7 @@ export function BrandReviewVisual({
   const asset = brandReviewIllustration(slug);
 
   return (
-    <div className="@container surface-card-strong min-w-0 overflow-hidden rounded-[2rem] p-5 md:p-6">
+    <div className="@container visual-card-strong min-w-0 overflow-hidden rounded-[2rem] p-5 md:p-6">
       <IllustrationImage
         asset={asset}
         className="aspect-[1.65]"
@@ -441,7 +445,7 @@ export function BrandReviewVisual({
 
 export function MetricsVisual({ metrics }: { metrics: string[] }) {
   return (
-    <div className="surface-card rounded-[2rem] p-6">
+    <div className="visual-card rounded-[2rem] p-6">
       <IllustrationImage
         asset={illustrations.testing}
         className="mb-6 aspect-[2.4]"

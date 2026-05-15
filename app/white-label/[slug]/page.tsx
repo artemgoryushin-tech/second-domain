@@ -115,7 +115,7 @@ export default async function WhiteLabelPage({ params }: PageProps) {
             </h1>
             <p className="mt-6 max-w-3xl text-xl leading-9 text-muted">{page.description}</p>
           </div>
-          <div className="media-frame overflow-hidden rounded-[1.75rem] border border-line p-4">
+          <div className="media-frame overflow-hidden rounded-[1.75rem] p-4">
             <Image
               src={visualIllustrations.platform.src}
               alt={visualIllustrations.platform.alt}
