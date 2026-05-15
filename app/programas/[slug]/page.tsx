@@ -133,35 +133,36 @@ export default async function RankingPage({ params }: PageProps) {
         }}
       />
       <article className="mx-auto max-w-7xl px-5 py-16">
-        <div className="grid items-start gap-10 lg:grid-cols-[1fr_0.4fr]">
-          <div>
-            <p className="inline-flex rounded-full border border-brand/15 bg-brand/5 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-brand">
-              {ranking.keyword}
+        <div>
+          <p className="inline-flex rounded-full border border-brand/15 bg-brand/5 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-brand">
+            {ranking.keyword}
+          </p>
+          <h1 className="mt-5 max-w-5xl text-balance text-5xl font-black tracking-tight text-ink">
+            {ranking.title}
+          </h1>
+          <p className="mt-6 max-w-5xl text-xl leading-9 text-muted">{ranking.intro}</p>
+          <p className="mt-4 max-w-5xl text-base leading-8 text-muted">
+            Público ideal: {ranking.audience}
+          </p>
+          <div className="mt-6 rounded-3xl border border-line bg-cream/80 p-5">
+            <p className="text-sm font-black uppercase tracking-[0.16em] text-brand">
+              Resposta rápida
             </p>
-            <h1 className="mt-5 max-w-4xl text-balance text-5xl font-black tracking-tight text-ink">
-              {ranking.title}
-            </h1>
-            <p className="mt-6 text-xl leading-9 text-muted">{ranking.intro}</p>
-            <p className="mt-4 text-base leading-8 text-muted">
-              Público ideal: {ranking.audience}
-            </p>
-            <div className="mt-6 rounded-3xl border border-line bg-cream/80 p-5">
-              <p className="text-sm font-black uppercase tracking-[0.16em] text-brand">
-                Resposta rápida
-              </p>
-              <p className="mt-3 text-base leading-8 text-muted">{seoContent.directAnswer}</p>
-            </div>
-            {ranking.secondaryKeywords ? (
-              <div className="mt-5 flex flex-wrap gap-2">
-                {ranking.secondaryKeywords.map((keyword) => (
-                  <span key={keyword} className="rounded-full bg-white px-3 py-1 text-xs font-black text-muted">
-                    {keyword}
-                  </span>
-                ))}
-              </div>
-            ) : null}
+            <p className="mt-3 text-base leading-8 text-muted">{seoContent.directAnswer}</p>
           </div>
-          <BeBrokerCTA compact />
+          {ranking.secondaryKeywords ? (
+            <div className="mt-5 flex flex-wrap gap-2">
+              {ranking.secondaryKeywords.map((keyword) => (
+                <span key={keyword} className="rounded-full bg-white px-3 py-1 text-xs font-black text-muted">
+                  {keyword}
+                </span>
+              ))}
+            </div>
+          ) : null}
+        </div>
+
+        <div className="mt-8">
+          <BeBrokerCTA compact horizontal />
         </div>
 
         <section className="mt-12 grid gap-4 md:grid-cols-3">
